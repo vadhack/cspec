@@ -1,24 +1,35 @@
 sys = require('sys')
 fs = require('fs')
+style = require('colors')
+
 coffee = require('coffee-script')
-Commands = require('./commands')
+commands = require('./commands')
+matchers = require('./matchers')
+shoulds = require('./shoulds')
 
-mixin = (target, src) ->
-  target[method] = action for method, action in src
-
-mixin CSpec, Commands
+Object.prototype.should = shoulds.should
+Object.prototype.shouldNot = shoulds.shouldNot
 
 class CSpec
   constructor: ->
     @output = { children: [] }
     @outputScope = @output
     @latestOutput = ""
+    @errors = []
+
+    this[name] = action for name, action of commands
+    this[name] = action for name, action of matchers
+    `CSpecGlobal = this`
 
   run: ->
     fs.readdir "./test", (err, files) ->
       files.forEach (file) ->
-        fs.readFile file, (err, data) ->
-          coffee.run data, { bare: true }
-          sys.print @latestOutput
+        fs.readFile './test/'+file, (err, data) ->
+          eval 'with (CSpecGlobal) {' + coffee.compile(''+data, { bare: true }) + '}'
+
+  update: (matcherResult) ->
+    [passed, message] = matcherResult
+    message = if passed then message.green else message.red
+    sys.puts message
 
 module.exports.CSpec = CSpec
