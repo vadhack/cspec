@@ -1,0 +1,20 @@
+{
+  "name": "cspec",
+  "description": "BDD library for node Done Right (tm).",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hammerdr/cspec.git"
+  },
+  "author": "Derek Hammer <derek.r.hammer@gmail.com> (http://derekhammer.com)",
+  "main": "lib/cspec.coffee",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "cake test"
+  },
+  "engines": {
+    "node": "0.4.4"
+  }
+}
