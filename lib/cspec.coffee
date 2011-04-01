@@ -22,9 +22,9 @@ class CSpec
     `CSpecGlobal = this`
 
   run: ->
-    fs.readdir "./test", (err, files) ->
+    fs.readdir "./spec", (err, files) ->
       files.forEach (file) ->
-        fs.readFile './test/'+file, (err, data) ->
+        fs.readFile './spec/'+file, (err, data) ->
           eval 'with (CSpecGlobal) {' + coffee.compile(''+data, { bare: true }) + '}'
 
   update: (matcherResult) ->
