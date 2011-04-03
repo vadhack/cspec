@@ -2,4 +2,6 @@ module.exports.should = (matcher) ->
   CSpecGlobal.update matcher this
 
 module.exports.shouldNot = (matcher) ->
-  CSpecGlobal.update matcher this
+  result = matcher this
+  matcher.success = !matcher.success
+  CSpecGlobal.update result
