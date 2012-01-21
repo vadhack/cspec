@@ -1,4 +1,4 @@
-sys = require('sys')
+sys = require('util')
 fs = require('fs')
 style = require('colors')
 
@@ -24,8 +24,9 @@ class CSpec
   run: ->
     fs.readdir "./spec", (err, files) ->
       files.forEach (file) ->
-        fs.readFile './spec/'+file, (err, data) ->
-          eval 'with (CSpecGlobal) {' + coffee.compile(''+data, { bare: true }) + '}'
+        if file.match /\.coffee$/
+          fs.readFile './spec/'+file, (err, data) ->
+            eval 'with (CSpecGlobal) {' + coffee.compile(''+data, { bare: true }) + '}'
 
   update: (matcherResult) ->
     [passed, message] = matcherResult
