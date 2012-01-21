@@ -22,11 +22,9 @@ class CSpec
     `CSpecGlobal = this`
 
   run: ->
-    fs.readdir "./spec", (err, files) ->
-      files.forEach (file) ->
-        if file.match /\.coffee$/
-          fs.readFile './spec/'+file, (err, data) ->
-            eval 'with (CSpecGlobal) {' + coffee.compile(''+data, { bare: true }) + '}'
+    require('./util').forEachCoffeeFileIn "./spec", (file) ->
+      fs.readFile './spec/'+file, (err, data) ->
+        eval 'with (CSpecGlobal) {' + coffee.compile(''+data, { bare: true }) + '}'
 
   update: (matcherResult) ->
     [passed, message] = matcherResult
