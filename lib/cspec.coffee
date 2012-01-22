@@ -21,10 +21,9 @@ class CSpec
     this[name] = action for name, action of matchers
     `CSpecGlobal = this`
 
-  run: ->
-    require('./util').forEachCoffeeFileIn "./spec", (file) ->
-      fs.readFile './spec/'+file, (err, data) ->
-        eval 'with (CSpecGlobal) {' + coffee.compile(''+data, { bare: true }) + '}'
+  run: (file) ->
+    fs.readFile file, (err, data) ->
+      eval 'with (CSpecGlobal) {' + coffee.compile(''+data, { bare: true }) + '}'
 
   update: (matcherResult) ->
     [passed, message] = matcherResult

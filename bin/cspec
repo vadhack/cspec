@@ -7,7 +7,7 @@ lib = path.join(path.dirname(fs.realpathSync(__filename)), '../out')
 CSpec = require(lib + '/cspec.js').CSpec
 commander = require('commander');
 commander.version('0.0.2')
-         .usage('[options]')
+         .usage('[options] [spec files]')
          .option('-i, --include <path>', 'Files to include')
          .option('-J, --jquery', 'Include jQuery+DOM')
          .parse(process.argv);
@@ -23,4 +23,7 @@ if commander.include
     fs.readFile process.cwd() + '/' + commander.include + '/' +file, (err, data) ->
       eval 'with (CSpecGlobal) { ' + coffee.compile(''+data, { bare: true }) + '; for(var variable in exports) { this[variable] = exports[variable]; } }'
 
-new CSpec().run()
+runner = new CSpec()
+
+commander.args.forEach (specFile) ->
+  runner.run(specFile)
