@@ -4,16 +4,19 @@ path = require('path');
 fs = require('fs')
 coffee = require('coffee-script')
 lib = path.join(path.dirname(fs.realpathSync(__filename)), '../out')
-document = require('jsdom').jsdom()
-window = document.createWindow()
-jQuery = require('jquery')
-$ = jQuery
 CSpec = require(lib + '/cspec.js').CSpec
 commander = require('commander');
 commander.version('0.0.2')
          .usage('[options]')
          .option('-i, --include <path>', 'Files to include')
+         .option('-J, --jquery', 'Include jQuery+DOM')
          .parse(process.argv);
+
+if commander.jquery
+  document = require('jsdom').jsdom()
+  window = document.createWindow()
+  jQuery = require('jquery')
+  $ = jQuery
 
 if commander.include
   require(lib + '/util.js').forEachCoffeeFileIn commander.include, (file) ->
