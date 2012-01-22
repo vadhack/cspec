@@ -18,12 +18,13 @@ if commander.jquery
   jQuery = require('jquery')
   $ = jQuery
 
-if commander.include
-  require(lib + '/util.js').forEachCoffeeFileIn commander.include, (file) ->
-    fs.readFile process.cwd() + '/' + commander.include + '/' +file, (err, data) ->
-      eval 'with (CSpecGlobal) { ' + coffee.compile(''+data, { bare: true }) + '; for(var variable in exports) { this[variable] = exports[variable]; } }'
-
 runner = new CSpec()
 
-commander.args.forEach (specFile) ->
-  runner.run(specFile)
+processInclude = (file) ->
+  fs.readFile process.cwd() + '/' + commander.include + '/' +file, (err, data) ->
+    eval 'with (CSpecGlobal) { ' + coffee.compile(''+data, { bare: true }) + '; for(var variable in exports) { this[variable] = exports[variable]; } }'
+
+if commander.include
+  require(lib + '/util.js').forEachCoffeeFileIn commander.include, processInclude, ->
+    commander.args.forEach (specFile) ->
+      runner.run(specFile)
