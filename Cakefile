@@ -5,6 +5,8 @@ task 'compile', (options) ->
   sys.exec 'coffee -o ./out/ -c ./lib/*.coffee'
 
 task 'spec', ->
+  appendSpec = (f) -> "spec/#{f}"
   fs.readdir 'spec', (err, files) ->
-    require("util").print "bin/cspec -i lib #{files.join(' ')}"
+    sys.exec "bin/cspec #{files.map(appendSpec).join(' ')}", (err, stdout, stderr) ->
+      require("util").print stdout
 
