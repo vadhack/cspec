@@ -1,5 +1,3 @@
-#!/usr/bin/env coffee
-
 path = require('path');
 fs = require('fs')
 coffee = require('coffee-script')

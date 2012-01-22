@@ -7,11 +7,20 @@
     "url": "git://github.com/hammerdr/cspec.git"
   },
   "author": "Derek Hammer <derek.r.hammer@gmail.com> (http://derekhammer.com)",
-  "main": "lib/cspec.coffee",
+  "main": "out/cspec.js",
+  "dependencies": {
+    "coffee-script": "~> 1.2.0",
+    "commander": "~> 0.5.2",
+    "jquery": "~> 1.6.3"
+  },
   "directories": {
-    "lib": "lib"
+    "lib": "out"
+  },
+  "bin": {
+    "cspec": "./bin/cspec.js"
   },
   "scripts": {
+    "prepublish": "cake compile",
     "test": "cake test"
   }
 }

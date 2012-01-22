@@ -3,6 +3,7 @@ fs = require 'fs'
 
 task 'compile', (options) ->
   sys.exec 'coffee -o ./out/ -c ./lib/*.coffee'
+  sys.exec 'coffee -b -o ./bin/ -c ./bin/*.coffee'
 
 task 'spec', ->
   appendSpec = (f) -> "spec/#{f}"
