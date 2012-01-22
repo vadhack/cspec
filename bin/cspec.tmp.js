@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 var $, CSpec, coffee, commander, document, fs, jQuery, lib, path, processInclude, runner, window;
 
 path = require('path');
