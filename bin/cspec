@@ -21,10 +21,13 @@ if commander.jquery
 runner = new CSpec()
 
 processInclude = (file) ->
-  fs.readFile process.cwd() + '/' + commander.include + '/' +file, (err, data) ->
-    eval 'with (CSpecGlobal) { ' + coffee.compile(''+data, { bare: true }) + '; for(var variable in exports) { this[variable] = exports[variable]; } }'
+  data = fs.readFileSync process.cwd() + '/' + commander.include + '/' +file
+  eval 'with (CSpecGlobal) { ' + coffee.compile(''+data, { bare: true }) + '; for(var variable in exports) { this[variable] = exports[variable]; } }'
 
 if commander.include
   require(lib + '/util.js').forEachCoffeeFileIn commander.include, processInclude, ->
     commander.args.forEach (specFile) ->
       runner.run(specFile)
+else
+  commander.args.forEach (specFile) ->
+    runner.run(specFile)
