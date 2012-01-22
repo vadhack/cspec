@@ -3,7 +3,7 @@ fs = require 'fs'
 
 task 'compile', (options) ->
   sys.exec 'coffee -o ./out/ -c ./lib/*.coffee'
-  sys.exec 'coffee -b -o ./bin/ -c ./bin/*.coffee && mv bin/cspec.js bin/cspec.tmp.js && echo "#!/usr/bin/env node" | cat - bin/cspec.tmp.js > bin/cspec.js'
+  sys.exec 'coffee -b -o ./bin/ -c ./bin/*.coffee && mv bin/cspec.js bin/cspec.tmp.js && echo "#!/usr/bin/env node" | cat - bin/cspec.tmp.js > bin/cspec.js && chmod +x bin/cspec.js'
 
 task 'spec', ->
   appendSpec = (f) -> "spec/#{f}"

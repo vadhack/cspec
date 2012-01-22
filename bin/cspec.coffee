@@ -4,7 +4,7 @@ coffee = require('coffee-script')
 lib = path.join(path.dirname(fs.realpathSync(__filename)), '../out')
 CSpec = require(lib + '/cspec.js').CSpec
 commander = require('commander');
-commander.version('0.0.3')
+commander.version('0.0.4')
          .usage('[options] [spec files]')
          .option('-i, --include <path>', 'Files to include')
          .option('-J, --jquery', 'Include jQuery+DOM')
