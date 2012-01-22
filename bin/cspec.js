@@ -14,7 +14,7 @@ CSpec = require(lib + '/cspec.js').CSpec;
 
 commander = require('commander');
 
-commander.version('0.0.2').usage('[options] [spec files]').option('-i, --include <path>', 'Files to include').option('-J, --jquery', 'Include jQuery+DOM').parse(process.argv);
+commander.version('0.0.3').usage('[options] [spec files]').option('-i, --include <path>', 'Files to include').option('-J, --jquery', 'Include jQuery+DOM').parse(process.argv);
 
 if (commander.jquery) {
   document = require('jsdom').jsdom();
