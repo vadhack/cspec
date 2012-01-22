@@ -3,6 +3,8 @@ module.exports.equal = (expected) ->
   (actual) ->
     [actual+'' == expected+'', self.outputScope.name + ': ' + actual + ' should equal ' + expected]
 
+module.exports.be = module.exports.equal
+
 module.exports.contain = (expected) ->
   self = this
   (actual) ->
