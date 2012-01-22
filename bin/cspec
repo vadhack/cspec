@@ -4,6 +4,10 @@ path = require('path');
 fs = require('fs')
 coffee = require('coffee-script')
 lib = path.join(path.dirname(fs.realpathSync(__filename)), '../out')
+document = require('jsdom').jsdom()
+window = document.createWindow()
+jQuery = require('jquery')
+$ = jQuery
 CSpec = require(lib + '/cspec.js').CSpec
 commander = require('commander');
 commander.version('0.0.2')
